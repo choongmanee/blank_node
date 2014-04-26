@@ -1,6 +1,7 @@
 var express = require('express.io');
 var path = require('path');
 var app = express().http().io();
+var less = require('less-middleware');
 
 //configuring the environment
 app.configure(function(){
@@ -10,6 +11,7 @@ app.configure(function(){
 	app.use(express.static(path.join(__dirname, 'public')));
 	app.use(express.session({secret:'charliemikekilo'}));
 	app.set('view engine', 'ejs');
+	app.use(less({ src: path.join(__dirname, 'public') }));
 });
 
 var route = require('./routes/index.js')(app);
